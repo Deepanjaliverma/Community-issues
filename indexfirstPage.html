@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FixMyStreet — Community Issue Reporting</title>
+  <link rel="stylesheet" href="styleFirstPage.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       HEADER / NAV
+  ═══════════════════════════════════ -->
+  <header>
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#" onclick="showPage('home')">
+          <div class="brand-mark">!</div>
+          FIX<span>MY</span>STREET
+        </a>
+        <nav>
+          <a href="#" onclick="showPage('home')"       id="nav-home">Home</a>
+          <a href="#" onclick="showPage('issues')"     id="nav-issues">All Issues</a>
+          <a href="#" onclick="showPage('report')"     id="nav-report">Report</a>
+          <a href="#" onclick="showPage('admin')"      id="nav-admin">Admin</a>
+        </nav>
+        <a class="nav-cta" href="#" onclick="showPage('report')">+ Report Issue</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       PAGE: HOME
+  ═══════════════════════════════════ -->
+  <div id="page-home" class="page">
+
+    <!-- HERO -->
+    <section class="container">
+      <div class="hero">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <div class="dot-live"></div>
+            <span class="eyebrow">Live civic tracker — Lucknow</span>
+          </div>
+          <h1>Spotted a problem?<br>Don't let it <em>go unnoticed.</em></h1>
+          <p class="hero-desc">
+            Report potholes, broken lights, water leaks, and garbage issues in seconds.
+            The community upvotes what matters most — and we track it until it's fixed.
+          </p>
+          <div class="hero-btns">
+            <a href="#" onclick="showPage('report')" class="btn btn-primary">Report an Issue →</a>
+            <a href="#" onclick="showPage('issues')" class="btn btn-outline">Browse Issues</a>
+          </div>
+        </div>
+        <div class="live-board">
+          <div class="lb-header">
+            <span class="lb-title">// live_status_board</span>
+            <div class="lb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div id="boardRows"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-cell">
+            <div class="stat-num" id="statTotal">—</div>
+            <div class="stat-label">Total Issues</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num green" id="statResolved">—</div>
+            <div class="stat-label">Resolved</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num" id="statPending">—</div>
+            <div class="stat-label">Pending / In Progress</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num gold" id="statRate">—</div>
+            <div class="stat-label">Resolution Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="container">
+      <div class="section">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2>From sighting to solved, in four steps.</h2>
+          <p>No app to install, no office to call. Just report what you see — the community does the rest.</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-box">
+            <span class="step-tag">01 — Report</span>
+            <h3>Submit the issue</h3>
+            <p>Fill a short form with category, location, and a photo. Takes under a minute.</p>
+          </div>
+          <div class="step-box">
+            <span class="step-tag">02 — Surface</span>
+            <h3>It goes live</h3>
+            <p>Your report appears instantly on the public dashboard for the whole locality to see.</p>
+          </div>
+          <div class="step-box">
+            <span class="step-tag">03 — Upvote</span>
+            <h3>Community backs it</h3>
+            <p>Neighbours facing the same problem upvote it, pushing it up the priority list.</p>
+          </div>
+          <div class="step-box">
+            <span class="step-tag">04 — Resolve</span>
+            <h3>Status updates</h3>
+            <p>Track progress as it moves from Pending → In Progress → Resolved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="container">
+      <div class="cat-section">
+        <div class="section-head">
+          <div class="eyebrow">Categories</div>
+          <h2>What you can report.</h2>
+        </div>
+        <div class="cat-grid">
+          <div class="cat-card"><div class="cat-icon">🛣️</div><div class="cat-name">Roads</div></div>
+          <div class="cat-card"><div class="cat-icon">💡</div><div class="cat-name">Electricity</div></div>
+          <div class="cat-card"><div class="cat-icon">🚰</div><div class="cat-name">Water</div></div>
+          <div class="cat-card"><div class="cat-icon">🗑️</div><div class="cat-name">Cleanliness</div></div>
+          <div class="cat-card"><div class="cat-icon">🚦</div><div class="cat-name">Traffic</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA BAND -->
+    <div class="cta-band">
+      <h2>Your street, your report.<br><span>Let's get it fixed.</span></h2>
+      <a href="#" onclick="showPage('report')" class="btn btn-gold">Report an Issue Now →</a>
+    </div>
+
+  </div><!-- end page-home -->
+
+
+  <!-- ═══════════════════════════════════
+       PAGE: ALL ISSUES
+  ═══════════════════════════════════ -->
+  <div id="page-issues" class="page" style="display:none">
+
+    <div class="page-hero-band">
+      <div class="container">
+        <div class="eyebrow">Community Reports</div>
+        <h1 class="page-title">All Reported Issues</h1>
+        <p class="page-subtitle">Browse, search and upvote issues in your area.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="issues-layout">
+
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+          <div class="filter-group">
+            <label class="filter-label">Search</label>
+            <input type="text" id="searchInput" class="filter-input" placeholder="Search by title or location…" oninput="filterIssues()" />
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Category</label>
+            <select id="filterCategory" class="filter-input" onchange="filterIssues()">
+              <option value="">All Categories</option>
+              <option value="Roads">Roads</option>
+              <option value="Electricity">Electricity</option>
+              <option value="Water">Water</option>
+              <option value="Cleanliness">Cleanliness</option>
+              <option value="Traffic">Traffic</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <select id="filterStatus" class="filter-input" onchange="filterIssues()">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="resolved">Resolved</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Sort By</label>
+            <select id="filterSort" class="filter-input" onchange="filterIssues()">
+              <option value="votes">Most Votes</option>
+              <option value="newest">Newest First</option>
+            </select>
+          </div>
+          <button class="btn btn-outline" style="width:100%;margin-top:8px" onclick="resetFilters()">Reset Filters</button>
+        </aside>
+
+        <!-- Issues List -->
+        <div class="issues-list">
+          <div class="issues-count" id="issuesCount"></div>
+          <div id="issueCards"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end page-issues -->
+
+
+  <!-- ═══════════════════════════════════
+       PAGE: REPORT ISSUE
+  ═══════════════════════════════════ -->
+  <div id="page-report" class="page" style="display:none">
+
+    <div class="page-hero-band">
+      <div class="container">
+        <div class="eyebrow">Submit a Complaint</div>
+        <h1 class="page-title">Report an Issue</h1>
+        <p class="page-subtitle">Fill the form below. Your report goes live instantly.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="report-layout">
+
+        <!-- Form -->
+        <div class="report-form-wrap">
+          <div id="reportSuccess" class="success-box" style="display:none">
+            <div class="success-icon">✅</div>
+            <h3>Issue Reported Successfully!</h3>
+            <p>Your report is now live. The community can view and upvote it.</p>
+            <button class="btn btn-primary" onclick="resetReportForm()">Report Another Issue</button>
+          </div>
+
+          <div id="reportForm">
+            <div class="form-group">
+              <label class="form-label">Issue Title <span class="required">*</span></label>
+              <input type="text" id="issueTitle" class="form-input" placeholder="e.g. Large pothole near XYZ crossing" />
+              <div class="form-error" id="err-title"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Category <span class="required">*</span></label>
+                <select id="issueCategory" class="form-input">
+                  <option value="">Select category</option>
+                  <option value="Roads">🛣️ Roads</option>
+                  <option value="Electricity">💡 Electricity</option>
+                  <option value="Water">🚰 Water</option>
+                  <option value="Cleanliness">🗑️ Cleanliness</option>
+                  <option value="Traffic">🚦 Traffic</option>
+                </select>
+                <div class="form-error" id="err-category"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Location <span class="required">*</span></label>
+                <input type="text" id="issueLocation" class="form-input" placeholder="e.g. Gomti Nagar, Lucknow" />
+                <div class="form-error" id="err-location"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Description <span class="required">*</span></label>
+              <textarea id="issueDescription" class="form-input form-textarea" placeholder="Describe the issue in detail — how long has it been there, how bad is it, any danger?"></textarea>
+              <div class="form-error" id="err-description"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Photo (optional)</label>
+              <div class="file-drop" id="fileDrop">
+                <div class="file-drop-icon">📷</div>
+                <div class="file-drop-text">Click to upload or drag & drop</div>
+                <div class="file-drop-sub">JPG, PNG up to 5MB</div>
+                <input type="file" id="issuePhoto" accept="image/*" style="display:none" onchange="handleFileSelect(this)" />
+              </div>
+              <div id="filePreview" style="display:none" class="file-preview">
+                <img id="previewImg" src="" alt="Preview" />
+                <button class="remove-file" onclick="removeFile()">✕ Remove</button>
+              </div>
+            </div>
+
+            <button class="btn btn-primary submit-btn" onclick="submitIssue()">Submit Report →</button>
+          </div>
+        </div>
+
+        <!-- Tips Sidebar -->
+        <aside class="report-tips">
+          <div class="tips-card">
+            <h4>📝 Tips for a good report</h4>
+            <ul class="tips-list">
+              <li>Be specific with the location</li>
+              <li>Mention how long the issue has existed</li>
+              <li>Add a photo — it increases credibility</li>
+              <li>Describe the impact on daily life</li>
+            </ul>
+          </div>
+          <div class="tips-card">
+            <h4>⚡ What happens next?</h4>
+            <ul class="tips-list">
+              <li>Your issue goes live immediately</li>
+              <li>Community members can upvote it</li>
+              <li>Higher votes = higher priority</li>
+              <li>Admin updates status as work progresses</li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </div><!-- end page-report -->
+
+
+  <!-- ═══════════════════════════════════
+       PAGE: ISSUE DETAILS
+  ═══════════════════════════════════ -->
+  <div id="page-details" class="page" style="display:none">
+
+    <div class="container">
+      <div class="details-back">
+        <a href="#" onclick="showPage('issues')" class="back-link">← Back to All Issues</a>
+      </div>
+      <div class="details-layout">
+
+        <!-- Main Content -->
+        <div class="details-main">
+          <div class="details-header">
+            <div class="details-badges">
+              <span id="detailCategory" class="cat-badge"></span>
+              <span id="detailStatus" class="badge"></span>
+            </div>
+            <h1 id="detailTitle" class="details-title"></h1>
+            <div class="details-meta">
+              <span>📍 <span id="detailLocation"></span></span>
+              <span>🆔 Issue #<span id="detailId"></span></span>
+            </div>
+          </div>
+
+          <div class="details-body">
+            <h3>Description</h3>
+            <p id="detailDescription"></p>
+          </div>
+
+          <div class="details-photo" id="detailPhotoWrap" style="display:none">
+            <h3>Photo Evidence</h3>
+            <img id="detailPhoto" src="" alt="Issue photo" />
+          </div>
+        </div>
+
+        <!-- Voting Sidebar -->
+        <aside class="details-sidebar">
+          <div class="vote-card">
+            <div class="vote-count" id="detailVotes">0</div>
+            <div class="vote-label">Community Votes</div>
+            <button class="btn btn-primary vote-btn" id="voteBtn" onclick="voteOnDetail()">
+              👍 Upvote this Issue
+            </button>
+            <p class="vote-note">More votes = higher priority for resolution</p>
+          </div>
+
+          <div class="status-card">
+            <h4>Status Timeline</h4>
+            <div class="timeline" id="detailTimeline"></div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </div><!-- end page-details -->
+
+
+  <!-- ═══════════════════════════════════
+       PAGE: ADMIN PANEL
+  ═══════════════════════════════════ -->
+  <div id="page-admin" class="page" style="display:none">
+
+    <div class="page-hero-band">
+      <div class="container">
+        <div class="eyebrow">Admin Panel</div>
+        <h1 class="page-title">Manage Issues</h1>
+        <p class="page-subtitle">Update issue statuses and monitor community reports.</p>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Admin Stats -->
+      <div class="admin-stats">
+        <div class="admin-stat-card">
+          <div class="admin-stat-num" id="adminTotal">0</div>
+          <div class="admin-stat-label">Total Issues</div>
+        </div>
+        <div class="admin-stat-card green">
+          <div class="admin-stat-num" id="adminResolved">0</div>
+          <div class="admin-stat-label">Resolved</div>
+        </div>
+        <div class="admin-stat-card gold">
+          <div class="admin-stat-num" id="adminPending">0</div>
+          <div class="admin-stat-label">Pending</div>
+        </div>
+        <div class="admin-stat-card blue">
+          <div class="admin-stat-num" id="adminProgress">0</div>
+          <div class="admin-stat-label">In Progress</div>
+        </div>
+      </div>
+
+      <!-- Admin Table -->
+      <div class="admin-table-wrap">
+        <div class="admin-table-head">
+          <h3>All Issues</h3>
+          <input type="text" class="filter-input" placeholder="Search issues…" style="width:220px" oninput="filterAdminTable(this.value)" />
+        </div>
+        <table class="admin-table" id="adminTable">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Location</th>
+              <th>Votes</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div><!-- end page-admin -->
+
+
+  <!-- FOOTER (shown on all pages) -->
+  <footer>
+    Built for the community, by the community. <strong>FixMyStreet</strong> © 2026
+  </footer>
+
+  <script src="apiFirstPage.js"></script>
+  <script src="homeFirstPage.js"></script>
+
+</body>
+</html>
